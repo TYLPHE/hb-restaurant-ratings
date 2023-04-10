@@ -3,6 +3,23 @@ import sys
 
 scores_dict = {}
 
+def main_menu():
+    print('Main menu:')
+    print(' 1. See all ratings')
+    print(' 2. Add a new restaurant')
+    print(' 3. Quit')
+
+    choice = input('> ')
+    if choice == '1':
+        token = tokenize(sys.argv[1])
+        output(token)
+        main_menu()
+    elif choice == '2':
+        add_restaurant_rating()
+        main_menu()
+    else:
+        exit()
+
 def add_restaurant_rating():
     """Prompt user to add restaurant and rating
     Adds to global dictionary variable
@@ -49,7 +66,4 @@ def output(dict):
         print(f'{restaurant} is rated at {rating}.')
 
 
-add_restaurant_rating()
-token = tokenize(sys.argv[1])
-output(token)
-
+main_menu()
