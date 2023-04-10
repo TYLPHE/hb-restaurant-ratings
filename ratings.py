@@ -3,13 +3,30 @@ import sys
 
 scores_dict = {}
 
-
 def add_restaurant_rating():
-    """Prompt user to add restaurant and rating"""
+    """Prompt user to add restaurant and rating
+    Adds to global dictionary variable
+    """
 
     restaurant = input('Restaurant name? ').strip()
-    rating = input('Rating? ').strip()
-    scores_dict[restaurant] = rating
+    rating = None
+
+
+    while True:
+        try:
+            while True:
+                rating = int(input('Rating? ').strip())
+                if rating > 0 and rating <= 5:
+                    break
+                else:
+                    print('Must be between 1 and 5')
+                    continue
+        except:
+            print('Must be 1 - 5')
+            continue
+        else:
+            scores_dict[restaurant] = rating
+            break
 
 
 def tokenize(filename):
