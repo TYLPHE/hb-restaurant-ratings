@@ -1,5 +1,6 @@
 """Restaurant rating lister."""
 import sys
+from random import choice
 
 scores_dict = {}
 
@@ -7,7 +8,8 @@ def main_menu():
     print('Main menu:')
     print(' 1. See all ratings')
     print(' 2. Add a new restaurant')
-    print(' 3. Quit')
+    print(' 3. Choose a random restaurant rating')
+    print(' 4. Quit')
 
     choice = input('> ')
     if choice == '1':
@@ -17,15 +19,18 @@ def main_menu():
     elif choice == '2':
         add_restaurant_rating()
         main_menu()
+    elif choice == '3':
+        random_update()
     else:
         exit()
 
-def add_restaurant_rating():
+def add_restaurant_rating(restaurant = None):
     """Prompt user to add restaurant and rating
     Adds to global dictionary variable
     """
+    if restaurant == None:
+        restaurant = input('Restaurant name? ').strip()
 
-    restaurant = input('Restaurant name? ').strip()
     rating = None
 
 
@@ -65,5 +70,21 @@ def output(dict):
     for restaurant, rating in sorted(dict.items()):
         print(f'{restaurant} is rated at {rating}.')
 
+def random_update():
+    token = tokenize(sys.argv[1])
+    lst = []
+    for item in sorted(token.items()):
+        lst.append(item)
+    
+    random_restaurant = choice(lst)
+    print(f'{random_restaurant[0]} is rated at {random_restaurant[1]}.')
 
+    update_rating = input('Update Rating? (y/n)')
+    if update_rating.lower() == 'y' or update_rating.lower() == 'yes':
+        add_restaurant_rating(random_restaurant[0])
+        output(scores_dict)
+        main_menu()
+        
+
+# random_update()
 main_menu()
